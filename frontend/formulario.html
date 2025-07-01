@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de consultas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url('https://i.redd.it/u5gsn5x658y71.png');">
+
+<header>
+  <nav class="bg-black px-5 py-4 flex justify-between items-center sticky top-0 z-50">
+    <h1 class="text-[1.8em] text-white">Tienes algún problema? Cuéntanos!</h1>
+    <ul class="flex gap-5">
+        <li><a href="index.html" class="inline-block bg-red-700 text-white font-medium px-4 py-2 rounded transition-colors duration-300 hover:bg-red-900 no-underline">
+    Volver al inicio
+</a>
+</li>
+</ul>
+</nav>
+</header>
+
+
+
+<section class="relative w-full min-h-[70vh] flex items-center justify-center overflow-hidden">
+    <div class="relative z-10 w-full max-w-[500px] mx-auto p-5 bg-black bg-opacity-40 rounded-xl shadow-2xl backdrop-blur-sm">
+    <h2 class="text-[2.2em] mb-3 text-center">Contáctanos</h2>
+    <p class="text-[1.1em] mb-6 text-center">¿Tienes alguna duda o quieres enviarnos un mensaje? Completa el formulario abajo.</p>
+    <form class="contact-form" action="#" method="post">
+    <div class="mb-4">
+    <label for="name" class="text-xl font-bold mb-3 text-white">Nombre:</label>
+    <input type="text" id="name" name="name" required 
+    class="w-full p-2 border border-black rounded bg-[#1b2838] bg-opacity-80 text-white focus:outline-none focus:ring-2 focus:ring-[#66c0f4]" />
+    </div>
+
+    <div class="mb-4">
+    <label for="email" class="text-xl font-bold mb-3 text-white">Email:</label>
+    <input type="email" id="email" name="email" required 
+    class="w-full p-2 border border-black rounded bg-[#1b2838] bg-opacity-80 text-white focus:outline-none focus:ring-2 focus:ring-[#66c0f4]" />
+    </div>
+        
+    <div class="mb-6">
+    <label for="message" class="text-xl font-bold mb-3 text-white">Mensaje:</label>
+    <textarea id="message" name="message" required rows="4"
+    class="w-full p-2 border border-black rounded bg-[#1b2838] bg-opacity-80 text-white focus:outline-none focus:ring-2 focus:ring-[#66c0f4]"></textarea>
+    </div>
+
+    <button type="submit" 
+    class="w-full bg-[#e74c3c] text-[#171a21] px-6 py-3 rounded-md font-bold transition-all duration-300 shadow-lg hover:bg-[#4a0404] hover:-translate-y-1 hover:shadow-xl focus:outline-none">
+    Enviar
+    </button>
+
+    </form>
+    </div>
+</section>
+
+<section class="max-w-[1200px] mx-auto px-5 py-10">
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="bg-[#4a0404] p-6 rounded-lg shadow-lg">
+      <h3 class="text-xl font-bold mb-3 text-white">Ubicación</h3>
+      <p class="text-white">Montreal, Canadá</p>
+    </div>
+    <div class="bg-[#4a0404] p-6 rounded-lg shadow-lg">
+      <h3 class="text-xl font-bold mb-3 text-white">Teléfono</h3>
+      <p class="text-white">+56 9 7341 5997</p>
+    </div>
+    <div class="bg-[#4a0404] p-6 rounded-lg shadow-lg">
+      <h3 class="text-xl font-bold mb-3 text-white">Email</h3>
+      <p class="text-white">deadbydaylightbhvr@gmail.com</p>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  const form = document.querySelector('.contact-form');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault(); // Evita que se envíe el formulario
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Mensaje enviado',
+      text: 'Gracias por contactarnos. Te responderemos pronto.',
+      confirmButtonColor: '#e74c3c'
+    });
+
+    form.reset(); // Limpia el formulario
+  });
+</script>
+
+
+<footer class="bg-black text-center text-white py-5">
+        <p>&copy; Behavior BHVR. Todos los derechos reservados.</p>
+        <p>Email: contacto@bhvr.cl | Tel: +56 9 2061 0217</p>
+      </footer>
+</body>
+</html>
