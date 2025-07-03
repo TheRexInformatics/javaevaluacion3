@@ -1,36 +1,27 @@
-const API_BASE_URL = "http://localhost:8091/api/deadbydaylight";
+const API_BASE_URL = "http://localhost:8080/api/v1/deadbydaylight";
 
-// -------------------------------
-// CARGAR DATOS
-// -------------------------------
 
-// Cargar todos los killers
 async function cargarKillers() {
   try {
     const response = await fetch(`${API_BASE_URL}/killers`);
     const killers = await response.json();
     console.log("Killers cargados:", killers);
-    // Aquí podrías recorrer y renderizar los killers en HTML
+
   } catch (error) {
     console.error("Error al cargar killers:", error);
   }
 }
 
-// Cargar todos los survis
 async function cargarSurvis() {
   try {
     const response = await fetch(`${API_BASE_URL}/survis`);
     const survis = await response.json();
     console.log("Survis cargados:", survis);
-    // Aquí podrías recorrer y renderizar los survis en HTML
+    
   } catch (error) {
     console.error("Error al cargar survis:", error);
   }
 }
-
-// -------------------------------
-// GUARDAR NUEVO KILLER
-// -------------------------------
 
 async function crearKiller(killerData) {
   try {
@@ -51,10 +42,6 @@ async function crearKiller(killerData) {
   }
 }
 
-// -------------------------------
-// GUARDAR NUEVO SURVI
-// -------------------------------
-
 async function crearSurvi(surviData) {
   try {
     const response = await fetch(`${API_BASE_URL}/survis`, {
@@ -74,11 +61,6 @@ async function crearSurvi(surviData) {
   }
 }
 
-// -------------------------------
-// EJEMPLOS DE USO
-// -------------------------------
-
-// Estos los puedes borrar cuando conectes tu formulario real
 const ejemploKiller = {
   nombre: "Springtrap",
   descripcion: "Animatrónico vengativo que acecha en la oscuridad.",
@@ -95,8 +77,3 @@ const ejemploSurvi = {
   perk3: "Espíritu de Novato"
 };
 
-// Puedes llamarlas así desde consola para probar:
-// crearKiller(ejemploKiller);
-// crearSurvi(ejemploSurvi);
-// cargarKillers();
-// cargarSurvis();

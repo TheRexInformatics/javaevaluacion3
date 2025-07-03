@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Perfil del Jugador - Estadísticas</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    canvas {
+      max-width: 400px;
+      max-height: 320px;
+      width: 100% !important;
+      height: 320px !important;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center p-6"
+      style="background-image: url('https://i.redd.it/1pj94zx19y901.png');">
+
+  <section class="w-full max-w-7xl bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl p-8">
+
+    <div class="flex items-center gap-4 mb-4">
+      <img src="https://i.pravatar.cc/100" alt="Jugador" class="w-16 h-16 rounded-full border-2 border-gray-300" />
+      <div>
+        <h1 id="nombreJugador" class="text-3xl font-bold text-gray-800">Tus estadísticas como jugador</h1>
+        <p class="text-base text-gray-600">Perfil general del jugador</p>
+
+        <!-- Nueva sección de recursos -->
+        <div class="mt-3 flex gap-6 text-gray-700">
+          <div class="flex flex-col items-center">
+            <span class="font-semibold text-lg">Células Áuricas</span>
+            <span class="text-xl font-bold text-yellow-500">500</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="font-semibold text-lg">Fragmentos Iridiscentes</span>
+            <span class="text-xl font-bold text-purple-600">9,500</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="font-semibold text-lg">Bloodpoints</span>
+            <span class="text-xl font-bold text-red-600">2,580,000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-8">
+
+      <div class="flex-1 bg-white rounded-xl p-6 shadow flex flex-col items-center">
+        <h2 class="text-xl font-semibold text-gray-700 mb-4">Tus estadísticas de Survi</h2>
+        <select id="selectSurvi" class="mb-4 rounded border border-gray-300 p-2 w-40 text-center">
+          <option value="dia">Día</option>
+          <option value="semana" selected>Semana</option>
+          <option value="mes">Mes</option>
+        </select>
+        <canvas id="graficoSurvi"></canvas>
+      </div>
+
+      <div class="flex-1 bg-white rounded-xl p-6 shadow flex flex-col items-center">
+        <h2 class="text-xl font-semibold text-gray-700 mb-4">Tus estadísticas de Killer</h2>
+        <select id="selectKiller" class="mb-4 rounded border border-gray-300 p-2 w-40 text-center">
+          <option value="dia">Día</option>
+          <option value="semana" selected>Semana</option>
+          <option value="mes">Mes</option>
+        </select>
+        <canvas id="graficoKiller"></canvas>
+      </div>
+
+    </div>
+
+  </section>
+
+<script>
+  Chart.register(ChartDataLabels);
+
+  // Título fijo
+  document.getElementById('nombreJugador').textContent = 'Tus estadísticas como jugador';
+
+  const paletaSurviFondo = [
+    'rgba(102, 204, 255, 0.7)',
+    'rgba(51, 153, 102, 0.7)',
+    'rgba(0, 102, 51, 0.7)'
+  ];
+  const paletaSurviBorde = [
+    'rgba(102, 204, 255, 1)',
+    'rgba(51, 153, 102, 1)',
+    'rgba(0, 102, 51, 1)'
+  ];
+
+  const paletaKillerFondo = [
+    'rgba(255, 99, 132, 0.7)',
+    'rgba(204, 0, 0, 0.7)',
+    'rgba(153, 0, 0, 0.7)'
+  ];
+  const paletaKillerBorde = [
+    'rgba(255, 99, 132, 1)',
+    'rgba(204, 0, 0, 1)',
+    'rgba(153, 0, 0, 1)'
+  ];
+
+  const datosSurvi = {
+    dia: [5, 7, 8],
+    semana: [10, 15, 12],
+    mes: [20, 24, 27]
+  };
+  const datosKiller = {
+    dia: [5, 8, 5],
+    semana: [10, 30, 12],
+    mes: [22, 20, 30]
+  };
+
+  const etiquetasSurvi = ['Escape', 'Reparaciones', 'Curaciones'];
+  const etiquetasKiller = ['Kills', 'Ataques', 'Victorias'];
+
+  const ctxSurvi = document.getElementById('graficoSurvi').getContext('2d');
+  const graficoSurvi = new Chart(ctxSurvi, {
+    type: 'bar',
+    data: {
+      labels: etiquetasSurvi,
+      datasets: [{
+        label: 'Acciones realizadas',
+        data: datosSurvi.semana,
+        backgroundColor: paletaSurviFondo,
+        borderColor: paletaSurviBorde,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      animation: { duration: 1200, easing: 'easeOutBounce' },
+      plugins: {
+        legend: { display: false },
+        datalabels: { 
+          color: '#333', 
+          anchor: 'end', 
+          align: 'top', 
+          font: { weight: 'bold' },
+          formatter: value => Math.round(value)
+        },
+        tooltip: {
+          callbacks: { label: ctx => `${ctx.label}: ${Math.round(ctx.raw)} acciones` }
+        }
+      },
+      scales: { y: { beginAtZero: true } }
+    },
+    plugins: [ChartDataLabels]
+  });
+
+  const ctxKiller = document.getElementById('graficoKiller').getContext('2d');
+  const graficoKiller = new Chart(ctxKiller, {
+    type: 'bar',
+    data: {
+      labels: etiquetasKiller,
+      datasets: [{
+        label: 'Acciones realizadas',
+        data: datosKiller.semana,
+        backgroundColor: paletaKillerFondo,
+        borderColor: paletaKillerBorde,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      animation: { duration: 1200, easing: 'easeOutBounce' },
+      plugins: {
+        legend: { display: false },
+        datalabels: { 
+          color: '#333', 
+          anchor: 'end', 
+          align: 'top', 
+          font: { weight: 'bold' },
+          formatter: value => Math.round(value)
+        },
+        tooltip: {
+          callbacks: { label: ctx => `${ctx.label}: ${Math.round(ctx.raw)} acciones` }
+        }
+      },
+      scales: { y: { beginAtZero: true } }
+    },
+    plugins: [ChartDataLabels]
+  });
+
+  document.getElementById('selectSurvi').addEventListener('change', e => {
+    const periodo = e.target.value;
+    graficoSurvi.data.datasets[0].data = datosSurvi[periodo];
+    graficoSurvi.update();
+  });
+
+  document.getElementById('selectKiller').addEventListener('change', e => {
+    const periodo = e.target.value;
+    graficoKiller.data.datasets[0].data = datosKiller[periodo];
+    graficoKiller.update();
+  });
+</script>
+
+<button
+  onclick="window.location.href='index.html'"
+  class="fixed bottom-4 left-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded transition shadow-lg"
+>
+  Volver al Inicio
+</button>
+
+</body>
+</html>

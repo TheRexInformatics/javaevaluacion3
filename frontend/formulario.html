@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/formulario.js"></script>
 </head>
 <body class="bg-cover bg-center bg-no-repeat bg-fixed" style="background-image: url('https://i.redd.it/u5gsn5x658y71.png');">
 
@@ -72,24 +73,6 @@
     </div>
   </div>
 </section>
-
-
-<script>
-  const form = document.querySelector('.contact-form');
-
-  form.addEventListener('submit', function(event) {
-    event.preventDefault(); // Evita que se envíe el formulario
-
-    Swal.fire({
-      icon: 'success',
-      title: 'Mensaje enviado',
-      text: 'Gracias por contactarnos. Te responderemos pronto.',
-      confirmButtonColor: '#e74c3c'
-    });
-
-    form.reset(); // Limpia el formulario
-  });
-</script>
 
 
 <footer class="bg-black text-center text-white py-5">
